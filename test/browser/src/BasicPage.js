@@ -14,18 +14,18 @@ export default class Page extends Component {
         }
 
         this.didMountWidgets = this.didMountWidgets.bind(this)
-        this.doRegisterEditor = this.doRegisterEditor.bind(this)
         this.doInvokeElement = this.doInvokeElement.bind(this)
         this.doChangeBlockElement = this.doChangeBlockElement.bind(this)
         this.doInsertAction = this.doInsertAction.bind(this)
         this.doAddWidget = this.doAddWidget.bind(this)
+        this.didUpdate = this.didUpdate.bind(this)
     }
 
     _calculateToolbarBoundary () {
-      if (!this._editorEl) { return };
+      if (!this._editor) { return };
       
       // TODO: Remove jQuery and use Inferno calls
-      var editorEl = this._editorEl
+      var editorEl = this._editor._vNode.dom
       var topBoundaryNode = this._containerEl; // TODO: We shouldn't hard code this!!!
       
       var bottomBoundary = getElOffset(editorEl).top + editorEl.clientHeight;
@@ -47,10 +47,6 @@ export default class Page extends Component {
         this._calculateToolbarBoundary();
     }
 
-    doRegisterEditor (editor) {
-      this._editor = editor
-    }
-
     doInvokeElement (tagName, opt) {
         this._editor.doInvokeElement(tagName, opt);
     }
@@ -67,21 +63,31 @@ export default class Page extends Component {
       this._editor.doAddWidget(utilityName, opt);
     }
 
+    didUpdate (htmlContent, widgetData) {
+        /*
+        var value = this.props.value;
+        this.props.onChange({
+            html: htmlContent,
+            widget_data: widgetData
+        });
+        */
+        this._calculateToolbarBoundary()
+    }
+
     render () {
         return (
-            <div ref={(e) => this._containerEl}>
+            <div ref={(e) => this._containerEl = e}>
                 <h1>App</h1>
                 <FormattingToolbar boundary={this.state.toolbarBoundary}>
                     <FormattingButton tagName="bold" onAction={this.doInvokeElement}><b>B</b></FormattingButton>
                     <FormattingButton tagName="italic" onAction={this.doInvokeElement}><i>I</i></FormattingButton>
                     <FormattingButton tagName="underline" onAction={this.doInvokeElement}><u>U</u></FormattingButton>
                 </FormattingToolbar>
-                <MediumEditor ref={(e) => this._editorEl}
+                <MediumEditor ref={(e) => this._editor = e}
                   content="<p>Hej</p>"
                   widgets={{}}
                   baseClassName="Article"
-                  onInit={this.doRegisterEditor}
-                  onChange={(d, c) => console.log(d, c)} />
+                  onChange={this.didUpdate} />
             </div>
         )
     }
