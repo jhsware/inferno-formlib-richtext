@@ -1,6 +1,6 @@
 import Component from 'inferno-component'
 import MediumEditor from '../../../lib/MediumEditor'
-import { FormattingToolbar, FormattingButton } from '../../../lib/Formatting'
+import { FormattingToolbar, FormattingButton,  } from '../../../lib/Formatting'
 import { getElOffset } from '../../../lib/utils'
 
 export default class Page extends Component {
@@ -82,6 +82,11 @@ export default class Page extends Component {
                     <FormattingButton tagName="bold" onAction={this.doInvokeElement}><b>B</b></FormattingButton>
                     <FormattingButton tagName="italic" onAction={this.doInvokeElement}><i>I</i></FormattingButton>
                     <FormattingButton tagName="underline" onAction={this.doInvokeElement}><u>U</u></FormattingButton>
+                    <FormattingButton tagName="h2" options={{className: 'Article-Header_2'}} onAction={this.doChangeBlockElement}>H2</FormattingButton>
+                    <FormattingButton tagName="h3" options={{className: 'Article-Header_3'}} onAction={this.doChangeBlockElement}>H3</FormattingButton>
+                    <FormattingButton tagName="h4" options={{className: 'Article-Header_4'}} onAction={this.doChangeBlockElement}>H4</FormattingButton>
+                    <FormattingButton tagName="p" options={{className: 'Article-Paragraph'}} onAction={this.doChangeBlockElement}>P</FormattingButton>
+                    <FormattingButton tagName="blockquote" options={{className: 'Article-Quote'}} onAction={this.doChangeBlockElement}>""</FormattingButton>
                 </FormattingToolbar>
                 <MediumEditor ref={(e) => this._editor = e}
                   content="<p>Hej</p>"
