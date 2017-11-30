@@ -1,7 +1,11 @@
 import Component from 'inferno-component'
 import MediumEditor from '../../../lib/MediumEditor'
-import { FormattingToolbar, FormattingButton,  } from '../../../lib/Formatting'
+import { FormattingToolbar, FormattingButton, InsertActionButton } from '../../../lib/Formatting'
 import { getElOffset } from '../../../lib/utils'
+import { IRichTextWidget, IRichTextAction } from '../../../lib/interfaces'
+
+import '../../../lib/actions/link'
+import '../../../lib/actions/unlink'
 
 export default class Page extends Component {
 
@@ -19,6 +23,7 @@ export default class Page extends Component {
         this.doInsertAction = this.doInsertAction.bind(this)
         this.doAddWidget = this.doAddWidget.bind(this)
         this.didUpdate = this.didUpdate.bind(this)
+        this.doCloseModal = this.doCloseModal.bind(this)
     }
 
     _calculateToolbarBoundary () {
@@ -52,15 +57,26 @@ export default class Page extends Component {
     }
 
     doChangeBlockElement (tagName, opt) {
-      this._editor.doChangeBlockElement(tagName, opt);
+        this._editor.doChangeBlockElement(tagName, opt);
+    }
+
+    doCloseModal () {
+        this.setState({
+            modalWidget: undefined
+        })
     }
 
     doInsertAction (action, opt) {
-      this._editor.doInsertAction(action, opt);
+        if (!this._editor._selectionIsInEditor()) { return }
+        // Execute an insert action
+        var actionUtil = registry.getUtility(IRichTextAction, action)
+        this.setState({
+            modalWidget: actionUtil.action.call(this._editor, opt, this.doCloseModal)
+        })
     }
 
     doAddWidget (utilityName, opt) {
-      this._editor.doAddWidget(utilityName, opt);
+        this._editor.doAddWidget(utilityName, opt);
     }
 
     didUpdate (htmlContent, widgetData) {
@@ -77,6 +93,7 @@ export default class Page extends Component {
     render () {
         return (
             <div ref={(e) => this._containerEl = e}>
+                {this.state.modalWidget}
                 <h1>App</h1>
                 <FormattingToolbar boundary={this.state.toolbarBoundary}>
                     <FormattingButton tagName="bold" onAction={this.doInvokeElement}><b>B</b></FormattingButton>
@@ -87,6 +104,9 @@ export default class Page extends Component {
                     <FormattingButton tagName="h4" options={{className: 'Article-Header_4'}} onAction={this.doChangeBlockElement}>H4</FormattingButton>
                     <FormattingButton tagName="p" options={{className: 'Article-Paragraph'}} onAction={this.doChangeBlockElement}>P</FormattingButton>
                     <FormattingButton tagName="blockquote" options={{className: 'Article-Quote'}} onAction={this.doChangeBlockElement}>""</FormattingButton>
+
+                    <InsertActionButton action="link" options={{className: 'Article-Link'}} onAction={this.doInsertAction}>link</InsertActionButton>
+                    <InsertActionButton action="unlink" onAction={this.doInsertAction}>unlink</InsertActionButton>
                 </FormattingToolbar>
                 <MediumEditor ref={(e) => this._editor = e}
                   content="<p>Hej</p>"
