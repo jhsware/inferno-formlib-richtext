@@ -109,7 +109,8 @@ export default class Page extends Component {
                     <InsertActionButton action="unlink" onAction={this.doInsertAction}>unlink</InsertActionButton>
                 </FormattingToolbar>
                 <MediumEditor ref={(e) => this._editor = e}
-                  content="<p>Hej</p>"
+                  content=""
+                  placeholder='Type here...'
                   widgets={{}}
                   baseClassName="Article"
                   onChange={this.didUpdate} />
