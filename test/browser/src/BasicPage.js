@@ -1,11 +1,12 @@
 import Component from 'inferno-component'
 import MediumEditor from '../../../lib/MediumEditor'
-import { FormattingToolbar, FormattingButton, InsertActionButton } from '../../../lib/Formatting'
+import { FormattingToolbar, FormattingButton, InsertActionButton, WidgetButton } from '../../../lib/Formatting'
 import { getElOffset } from '../../../lib/utils'
 import { IRichTextWidget, IRichTextAction } from '../../../lib/interfaces'
 
 import '../../../lib/actions/link'
 import '../../../lib/actions/unlink'
+import '../../../lib/widgets/YoutubeWidget'
 
 export default class Page extends Component {
 
@@ -76,7 +77,9 @@ export default class Page extends Component {
     }
 
     doAddWidget (utilityName, opt) {
-        this._editor.doAddWidget(utilityName, opt);
+        this.setState({
+            modalWidget: this._editor.doAddWidget(utilityName, opt, this.doCloseModal)
+        })
     }
 
     didUpdate (htmlContent, widgetData) {
@@ -107,6 +110,8 @@ export default class Page extends Component {
 
                     <InsertActionButton action="link" options={{className: 'Article-Link'}} onAction={this.doInsertAction}>link</InsertActionButton>
                     <InsertActionButton action="unlink" onAction={this.doInsertAction}>unlink</InsertActionButton>
+
+                    <WidgetButton utilityName="Youtube" options={{}} onAction={this.doAddWidget}>Youtube</WidgetButton>
                 </FormattingToolbar>
                 <MediumEditor ref={(e) => this._editor = e}
                   content=""
