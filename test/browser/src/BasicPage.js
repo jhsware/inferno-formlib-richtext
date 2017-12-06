@@ -7,6 +7,7 @@ import { IRichTextWidget, IRichTextAction } from '../../../lib/interfaces'
 import '../../../lib/actions/link'
 import '../../../lib/actions/unlink'
 import '../../../lib/widgets/YoutubeWidget'
+import '../../../lib/widgets/PodcastWidget'
 
 export default class Page extends Component {
 
@@ -112,6 +113,7 @@ export default class Page extends Component {
                     <InsertActionButton action="unlink" onAction={this.doInsertAction}>unlink</InsertActionButton>
 
                     <WidgetButton utilityName="Youtube" options={{}} onAction={this.doAddWidget}>Youtube</WidgetButton>
+                    <WidgetButton utilityName="Podcast" options={{}} onAction={this.doAddWidget}>Podcast</WidgetButton>
                 </FormattingToolbar>
                 <MediumEditor ref={(e) => this._editor = e}
                   content=""
