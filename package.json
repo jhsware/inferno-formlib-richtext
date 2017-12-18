@@ -49,11 +49,10 @@
     "webpack": "^2.7.0"
   },
   "dependencies": {
-    "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "classnames": "^2.2.5",
     "inferno": "^3.10.1",
-    "inferno-animation": "^0.3.4",
+    "inferno-animation": "^0.4.11",
     "inferno-component": "^3.10.1",
     "medium.js": "^1.0.1"
   }
