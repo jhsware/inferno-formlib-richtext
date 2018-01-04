@@ -21,7 +21,7 @@ class AppLayout extends Component {
   render () {
     return (
       <div className="Content">
-        <Nav>
+        <Nav className="MenuNavigation">
           <NavItem>
             <NavLink to="/inferno-formlib-richtext">Edit Page</NavLink>
           </NavItem>
