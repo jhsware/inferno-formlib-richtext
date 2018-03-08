@@ -1,4 +1,4 @@
-import Component from 'inferno-component'
+import { Component } from 'inferno'
 import MediumEditor from '../../../lib/MediumEditor'
 import { FormattingToolbar, FormattingButton, InsertActionButton, WidgetButton } from '../../../lib/Formatting'
 import { getElOffset } from '../../../lib/utils'
@@ -32,7 +32,7 @@ export default class Page extends Component {
       if (!this._editor) { return };
       
       // TODO: Remove jQuery and use Inferno calls
-      var editorEl = this._editor._vNode.dom
+      var editorEl = this._editor.$V.dom
       var topBoundaryNode = this._containerEl; // TODO: We shouldn't hard code this!!!
       
       var bottomBoundary = getElOffset(editorEl).top + editorEl.clientHeight;

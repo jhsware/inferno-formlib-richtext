@@ -1,7 +1,5 @@
-import Inferno from 'inferno'
-import Component from 'inferno-component'
-import { Router, Route, Redirect, IndexRoute, Link } from 'inferno-router'
-import createBrowserHistory from 'history/createBrowserHistory'
+import { Component, render } from 'inferno'
+import { BrowserRouter, Switch, Route, Redirect, Link } from 'inferno-router'
 
 import Button from 'inferno-bootstrap/lib/Button'
 
@@ -17,7 +15,19 @@ function NavLink (props) {
   )
 }
 
-class AppLayout extends Component {
+function Content ({ match }) {
+  return (
+    <div>
+      <Switch>
+        <Route exact path={`${match.path}`} component={ BasicPage } />
+        <Route exact path={`${match.path}/view`} component={ ViewPage } />
+        <Redirect to="/inferno-formlib-richtext" />
+      </Switch>
+    </div>
+  )
+}
+
+class App extends Component {
   render () {
     return (
       <div className="Content">
@@ -29,24 +39,17 @@ class AppLayout extends Component {
             <NavLink to="/inferno-formlib-richtext/view">View Page</NavLink>
           </NavItem>
         </Nav>
-        {this.props.children}
+        <Switch>
+          <Route path="/inferno-formlib-richtext" component={ Content } />
+          <Redirect to="/inferno-formlib-richtext" />
+        </Switch>
       </div>
     )
   }
 }
 
 if (typeof window !== 'undefined') {
-  require('inferno-devtools')
-  const browserHistory = createBrowserHistory()
+  // require('inferno-devtools')
 
-  const appRoutes = (
-    <Router history={ browserHistory }>
-      <Route path="/inferno-formlib-richtext" component={ AppLayout }>
-        <IndexRoute component={ BasicPage } />
-        <Route path="/view" component={ ViewPage } />
-      </Route>
-      <Redirect from="/*" to="/inferno-formlib-richtext" />
-    </Router>
-  )
-  Inferno.render(appRoutes, document.getElementById('app'))
+  render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('app'))
 }

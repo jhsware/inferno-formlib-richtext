@@ -1,4 +1,5 @@
-import Component from 'inferno-component'
+import { globalRegistry } from 'component-registry'
+import { Component, createPortal } from 'inferno'
 import MediumEditor from '../../../lib/MediumEditor'
 import { FormattingToolbar, FormattingButton, InsertActionButton, WidgetButton } from '../../../lib/Formatting'
 import { mountWidgets, unmountWidgets } from '../../../lib/utils'
@@ -8,6 +9,10 @@ import '../../../lib/actions/link'
 import '../../../lib/actions/unlink'
 import '../../../lib/widgets/YoutubeWidget'
 
+function HTMLContent ({ contentHtml }) {
+    return <div dangerouslySetInnerHTML={{__html: contentHtml}}></div>
+}
+
 export default class Page extends Component {
 
     constructor (props) {
@@ -15,23 +20,46 @@ export default class Page extends Component {
 
         this.state = {
             contentHtml: htmlData,
-            widgetData: widgetData
+            widgetData: widgetData,
+            portals: []
         }
     }
 
     componentDidMount () {
-        mountWidgets(this._contentEl, this.state.widgetData)
+        const widgets = this.state.widgetData
+        for (var key in widgets) {
+            // Get the widget
+            var widget = widgets[key]
+            var $widget = this._contentEl.querySelector("#" + widget.widgetId)
+            
+            // Get the widget utility
+            try {
+                var widgetUtil = globalRegistry.getUtility(IRichTextWidget, widget.utilityName)
+                var ViewComponent = widgetUtil.Component
+                // ReactDOM.render(<ViewComponent context={widget.data} widgetId={widget.widgetId} editor={this} />, $widget[0])
+                this.state.portals.push(
+                    createPortal(
+                        <ViewComponent context={widget.data} widgetId={widget.widgetId} editor={this} />, 
+                        $widget
+                    )
+                )
+            } catch (e) {
+                console.log("[RichText] We couldn't find and/or mount the widget: " + widget.utilityName + " (#" + widget.widgetId + ")")
+                console.log(e)
+            }
+            
+        }
+        this.setState({
+            portals: this.state.portals
+        })
     }
 
-    componentWillUnmount () {
-        unmountWidgets(this._contentEl, this.state.widgetData)
-    }
-    
     render () {
         return (
-            <div>
+            <div ref={(e) => this._contentEl = e}>
                 <h1>The Article</h1>
-                <div ref={(e) => this._contentEl = e} dangerouslySetInnerHTML={{__html: this.state.contentHtml}}></div>
+                <HTMLContent contentHtml={this.state.contentHtml} />
+                {this.state.portals}
             </div>
         )
     }

@@ -15,6 +15,12 @@
   pointer-events: none;
 }
 
+.Medium-rich {
+  -webkit-user-modify: read-write;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
 .RichEditor-StickyFormattingToolbar {
   background-color: rgba(255,255,255,0.8);
   position: fixed;
