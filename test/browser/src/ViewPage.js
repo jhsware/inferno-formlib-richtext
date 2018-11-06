@@ -1,13 +1,13 @@
 import { globalRegistry } from 'component-registry'
 import { Component, createPortal } from 'inferno'
-import MediumEditor from '../../../lib/MediumEditor'
-import { FormattingToolbar, FormattingButton, InsertActionButton, WidgetButton } from '../../../lib/Formatting'
-import { mountWidgets, unmountWidgets } from '../../../lib/utils'
-import { IRichTextWidget, IRichTextAction } from '../../../lib/interfaces'
+import MediumEditor from '../../../src/MediumEditor'
+import { FormattingToolbar, FormattingButton, InsertActionButton, WidgetButton } from '../../../src/Formatting'
+import { mountWidgets, unmountWidgets } from '../../../src/utils'
+import { IRichTextWidget, IRichTextAction } from '../../../src/interfaces'
 
-import '../../../lib/actions/link'
-import '../../../lib/actions/unlink'
-import '../../../lib/widgets/YoutubeWidget'
+import '../../../src/actions/link'
+import '../../../src/actions/unlink'
+import '../../../src/widgets/YoutubeWidget'
 
 function HTMLContent ({ contentHtml }) {
     return <div dangerouslySetInnerHTML={{__html: contentHtml}}></div>

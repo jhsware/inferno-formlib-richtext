@@ -1,23 +1,17 @@
 'use strict';
-import { globalRegistry } from 'component-registry'
-import { Component } from 'inferno'
-
-import { Schema } from 'isomorphic-schema'
-import TextField from 'isomorphic-schema/lib/field_validators/TextField'
-import 'inferno-formlib/dist/widgets/InputField'
-import 'inferno-formlib/dist/widgets/FormRow'
-
-import Button from 'inferno-bootstrap/dist/Button'
-import Modal from 'inferno-bootstrap/dist/Modal/Modal'
-import ModalBody from 'inferno-bootstrap/dist/Modal/ModalBody'
-import ModalHeader from 'inferno-bootstrap/dist/Modal/ModalHeader'
-
-import Form from 'inferno-bootstrap/dist/Form/Form'
-import Row from 'inferno-bootstrap/dist/Row'
-import Col from 'inferno-bootstrap/dist/Col'
-import Container from 'inferno-bootstrap/dist/Container'
-
-import { FormRows } from 'inferno-formlib/dist/FormRows'
+import { Component } from 'inferno';
+import { Schema, TextField } from 'isomorphic-schema';
+import { FormRows } from 'inferno-formlib';
+import 'inferno-formlib/lib/widgets/InputField'
+import 'inferno-formlib/lib/widgets/FormRow'
+import {
+  Modal,
+  ModalBody,
+  ModalHeader,
+  Form,
+  Row,
+  Col
+} from 'inferno-bootstrap';
 
 // Edit/add widget modal
 

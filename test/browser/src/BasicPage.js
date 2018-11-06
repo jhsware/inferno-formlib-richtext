@@ -1,13 +1,13 @@
 import { Component } from 'inferno'
-import MediumEditor from '../../../lib/MediumEditor'
-import { FormattingToolbar, FormattingButton, InsertActionButton, WidgetButton } from '../../../lib/Formatting'
-import { getElOffset } from '../../../lib/utils'
-import { IRichTextWidget, IRichTextAction } from '../../../lib/interfaces'
+import MediumEditor from '../../../src/MediumEditor'
+import { FormattingToolbar, FormattingButton, InsertActionButton, WidgetButton } from '../../../src/Formatting'
+import { getElOffset } from '../../../src/utils'
+import { IRichTextWidget, IRichTextAction } from '../../../src/interfaces'
 
-import '../../../lib/actions/link'
-import '../../../lib/actions/unlink'
-import '../../../lib/widgets/YoutubeWidget'
-import '../../../lib/widgets/PodcastWidget'
+import '../../../src/actions/link'
+import '../../../src/actions/unlink'
+import '../../../src/widgets/YoutubeWidget'
+import '../../../src/widgets/PodcastWidget'
 
 export default class Page extends Component {
 
@@ -32,7 +32,7 @@ export default class Page extends Component {
       if (!this._editor) { return };
       
       // TODO: Remove jQuery and use Inferno calls
-      var editorEl = this._editor.$V.dom
+      var editorEl = this._editor.$LI.dom
       var topBoundaryNode = this._containerEl; // TODO: We shouldn't hard code this!!!
       
       var bottomBoundary = getElOffset(editorEl).top + editorEl.clientHeight;

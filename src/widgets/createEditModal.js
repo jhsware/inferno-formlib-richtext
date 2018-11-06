@@ -1,19 +1,16 @@
 'use strict';
-import { globalRegistry, createUtility } from 'component-registry'
 import { Component } from 'inferno'
 
-import Button from 'inferno-bootstrap/dist/Button'
-import Modal from 'inferno-bootstrap/dist/Modal/Modal'
-import ModalBody from 'inferno-bootstrap/dist/Modal/ModalBody'
-import ModalHeader from 'inferno-bootstrap/dist/Modal/ModalHeader'
+import {
+    Modal,
+    ModalBody,
+    ModalHeader,
+    Form,
+    Row,
+    Col
+} from 'inferno-bootstrap'
 
-import Form from 'inferno-bootstrap/dist/Form/Form'
-import Row from 'inferno-bootstrap/dist/Row'
-import Col from 'inferno-bootstrap/dist/Col'
-import Container from 'inferno-bootstrap/dist/Container'
-
-import { FormRows } from 'inferno-formlib/dist/FormRows'
-
+import { FormRows } from 'inferno-formlib'
 
 export default function (formSchema, title, DisplayWidget) {
 

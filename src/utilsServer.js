@@ -1,5 +1,4 @@
 import { globalRegistry } from 'component-registry'
-import Inferno from 'inferno'
 import { Component } from 'inferno'
 
 import { IRichTextWidget } from './interfaces'
