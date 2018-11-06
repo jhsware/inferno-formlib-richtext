@@ -1,22 +1,18 @@
 {
   "presets": [
-    "stage-0",
-    "es2015"
+    ["@babel/env", { "modules": false }]
   ],
-  "plugins": [
-    "transform-object-rest-spread",
-    "babel-plugin-syntax-jsx",
-    "add-module-exports",
-    ["babel-plugin-inferno", {"imports": true}]
-  ],
-  "env": {
-    "test": {
-      "plugins": [
-        "transform-object-rest-spread",
-        "babel-plugin-syntax-jsx",
-        "add-module-exports",
-        ["babel-plugin-inferno", {"imports": true}]
+    "plugins": [
+      "add-module-exports",      
+      "@babel/proposal-class-properties",
+      "@babel/transform-runtime",
+      "@babel/syntax-object-rest-spread",
+      "@babel/syntax-jsx",
+      [
+        "babel-plugin-inferno",
+        {
+          "imports": true
+        }
       ]
-    }
-  }
+  ]
 }

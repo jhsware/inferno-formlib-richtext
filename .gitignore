@@ -12,5 +12,6 @@ typings.json
 node_modules
 
 # Built at startup
-dist
+dist/
+lib/
 package-lock.json
