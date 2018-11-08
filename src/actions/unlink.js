@@ -1,11 +1,9 @@
 'use strict';
-import { globalRegistry, createUtility } from 'component-registry'
-
+import { Utility } from 'component-registry'
 import { IRichTextAction } from '../interfaces'
-
 import { getCurrentSelectionRange } from '../utils'
 
-var ActionUtil = createUtility({
+const ActionUtil = new Utility({
     implements: IRichTextAction,
     name: 'unlink',
     
@@ -20,4 +18,4 @@ var ActionUtil = createUtility({
         // Signal change
         this.didChange()
     }
-}).registerWith(globalRegistry)
+})

@@ -3,11 +3,13 @@ import { globalRegistry, createUtility } from 'component-registry'
 import { Component } from 'inferno'
 
 import { Schema } from 'isomorphic-schema'
-import TextField from 'isomorphic-schema/lib/field_validators/TextField'
-import TextAreaField from 'isomorphic-schema/lib/field_validators/TextAreaField'
-import 'inferno-formlib/lib/widgets/InputField'
-import 'inferno-formlib/lib/widgets/TextAreaField'
-import 'inferno-formlib/lib/widgets/FormRow'
+import {
+  TextField,
+  TextAreaField
+} from 'isomorphic-schema'
+//import 'inferno-formlib/lib/widgets/InputField'
+//import 'inferno-formlib/lib/widgets/TextAreaField'
+//import 'inferno-formlib/lib/widgets/FormRow'
 
 import { IRichTextWidget, IRichTextEditWidget } from '../interfaces'
 import createEditModal from './createEditModal'

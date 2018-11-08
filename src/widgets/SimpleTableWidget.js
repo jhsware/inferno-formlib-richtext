@@ -6,11 +6,11 @@ if (typeof window !== 'undefined') {
     var Medium = require('medium.js');    
 }
 
-var Button = require('react-bootstrap').Button;
+import { Button } from 'inferno-bootstrap'
 
 import { IRichTextWidget } from '../interfaces'
-var IActionBarWidget = require('protoncms-core').interfaces.IActionBarWidget;
-var IActionButtonWidget = require('protoncms-core').interfaces.IActionButtonWidget;
+//var IActionBarWidget = require('protoncms-core').interfaces.IActionBarWidget;
+// var IActionButtonWidget = require('protoncms-core').interfaces.IActionButtonWidget;
 
 
 // Edit/add widget modal

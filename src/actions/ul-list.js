@@ -1,12 +1,9 @@
 'use strict';
-import { globalRegistry } from 'component-registry'
-var createUtility = require('component-registry').createUtility;
+import { Utility } from 'component-registry'
+import { IRichTextAction } from '../interfaces'
+import { getCurrentSelectionRange, getBlockEl, placeCaretInElement } from '../utils'
 
-var IRichTextAction = require('../interfaces').IRichTextAction;
-
-var utils = require('../utils');
-
-var ActionUtil = createUtility({
+const ActionUtil = new Utility({
     implements: IRichTextAction,
     name: 'ul-list',
     
@@ -20,9 +17,9 @@ var ActionUtil = createUtility({
     	li.className = options.className + '-Item placeCaretHereNow';
         li.innerHTML = "Type here...";
 
-        var range = utils.getCurrentSelectionRange();
+        var range = getCurrentSelectionRange();
         var startEl = (range.startContainer.tagName ? range.startContainer : range.startContainer.parentNode);
-        var blockEl = utils.getBlockEl(this.refs['editor'].getDOMNode(), startEl);
+        var blockEl = getBlockEl(this.refs['editor'].getDOMNode(), startEl);
         if (blockEl.textContent == "") {
             // Replace current block
             $(blockEl).replaceWith(ul)
@@ -36,12 +33,9 @@ var ActionUtil = createUtility({
             this.medium.insertHtml(html);
         }
     
-        utils.placeCaretInElement('placeCaretHereNow', 0, 1);
+        placeCaretInElement('placeCaretHereNow', 0, 1);
         // Signal change
         this.didChange();
     }
     
 });
-registry.registerUtility(ActionUtil);
-
-

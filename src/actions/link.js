@@ -1,18 +1,15 @@
 'use strict'
-import { globalRegistry, createUtility } from 'component-registry'
-import { Component } from 'inferno'
+import { Utility } from 'component-registry'
+import { IRichTextAction } from '../interfaces'
+import { getCurrentSelectionRange, setSelectionRange } from '../utils'
+import AnchorModal from './modals/AnchorModal'
 
-var IRichTextAction = require('../interfaces').IRichTextAction
-
-var utils = require('../utils')
-var AnchorModal = require('./modals/AnchorModal')
-
-var ActionUtil = createUtility({
+const ActionUtil = new Utility({
     implements: IRichTextAction,
     name: 'link',
     
     action: function (options, onClose) {        
-        var range = utils.getCurrentSelectionRange()
+        var range = getCurrentSelectionRange()
         
         // Check if we are in a link, if found edit it, otherwise create a link later in the callback
         var startEl = (range.startContainer.tagName ? range.startContainer : range.startContainer.parentNode)
@@ -41,7 +38,7 @@ var ActionUtil = createUtility({
                 } catch (e) {
                     var endOffset = range.startContainer.textContent.length
                     range.setEnd(range.startContainer, endOffset)
-                    utils.setSelectionRange(range)
+                    setSelectionRange(range)
 
                     range.surroundContents(newEl)
                 }
@@ -61,7 +58,7 @@ var ActionUtil = createUtility({
         
         var didCancel = function (callback) {
             // Reset the selection
-            utils.setSelectionRange(range)
+            setSelectionRange(range)
             callback()
         };
         
@@ -69,4 +66,3 @@ var ActionUtil = createUtility({
     }
     
 });
-registry.registerUtility(ActionUtil)

@@ -2,8 +2,8 @@
 import { Component } from 'inferno';
 import { Schema, TextField } from 'isomorphic-schema';
 import { FormRows } from 'inferno-formlib';
-import 'inferno-formlib/lib/widgets/InputField'
-import 'inferno-formlib/lib/widgets/FormRow'
+//import 'inferno-formlib/lib/widgets/InputField'
+//import 'inferno-formlib/lib/widgets/FormRow'
 import {
   Modal,
   ModalBody,
