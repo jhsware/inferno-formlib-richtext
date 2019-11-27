@@ -80,7 +80,13 @@ export default class AnchorModal extends Component {
     
     
     closeModal () {
-      this.props.onClose()
+      this.setState({
+        modalOpen: false
+      })
+
+      setTimeout(() => {
+        this.props.onClose && this.props.onClose()
+      }, 600)
     }
     
     _doSubmit (callback) {
@@ -149,7 +155,7 @@ export default class AnchorModal extends Component {
         const formSchema = anchorSchema
        
         return (
-            <Modal isOpen={this.state.modalOpen} fade="true">
+            <Modal isOpen={this.state.modalOpen} toggle={this.closeModal} fade="true">
                 <ModalHeader>
                     <h3>Länk</h3>
                 </ModalHeader>

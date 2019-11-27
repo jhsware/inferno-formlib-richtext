@@ -76,17 +76,22 @@ export class FormattingButton extends Component {
     constructor (props) {
         super(...arguments)
         this.doInvoke = this.doInvoke.bind(this)
+        this.blockEvent = this.blockEvent.bind(this)
     }
 
     doInvoke (e) {
         e.preventDefault()
         this.props.onAction(this.props.tagName, this.props.options || {})
     }
+
+    blockEvent (e) {
+      e.preventDefault()
+    }
     
     render () {
         return (
             // IMPORTANT! We need to listen to onMouseDown or else we clear the current selection
-            <div className="RichEditor-FormattingButton" onMouseDown={this.doInvoke}>
+            <div className="RichEditor-FormattingButton" onMouseDown={this.blockEvent} onClick={this.doInvoke}>
                 {this.props.children || this.props.title}
             </div>
         )
@@ -97,6 +102,7 @@ export class InsertActionButton extends Component {
     constructor (props) {
         super(...arguments)
         this.doInvoke = this.doInvoke.bind(this)
+        this.blockEvent = this.blockEvent.bind(this)
     }
 
     doInvoke (e) {
@@ -104,10 +110,14 @@ export class InsertActionButton extends Component {
         this.props.onAction(this.props.action, this.props.options || {});
     }
 
+    blockEvent (e) {
+      e.preventDefault()
+    }
+
     render () {
         return (
             // IMPORTANT! We need to listen to onMouseDown or else we clear the current selection
-            <div className="RichEditor-InsertActionButton" onMouseDown={this.doInvoke}>
+            <div className="RichEditor-InsertActionButton" onMouseDown={this.blockEvent} onClick={this.doInvoke}>
                 {this.props.children || this.props.title}
             </div>
         )
@@ -118,6 +128,7 @@ export class WidgetButton extends Component {
     constructor (props) {
         super(...arguments)
         this.doInsert = this.doInsert.bind(this)
+        this.blockEvent = this.blockEvent.bind(this)
     }
 
     doInsert (e) {
@@ -125,10 +136,14 @@ export class WidgetButton extends Component {
         this.props.onAction(this.props.utilityName, this.props.options || {})
     }
 
+    blockEvent (e) {
+      e.preventDefault()
+    }
+
     render () {
         return (
-            // IMPORTANT! We need to listen to onMouseDown or else we clear the current selection
-            <div className="RichEditor-WidgetButton" onMouseDown={this.doInsert}>
+            // IMPORTANT! We need to cancel onMouseDown or else we clear the current selection
+            <div className="RichEditor-WidgetButton" onMouseDown={this.blockEvent} onClick={this.doInsert}>
                 {this.props.children || this.props.title}
             </div>
         )
